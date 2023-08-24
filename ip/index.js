@@ -1,38 +1,40 @@
 //axios import buraya gelecek
-
+import axios from "axios";
 var benimIP;
-
 
 // ------------ değiştirmeyin --------------
 // licensed to Ergineer 2022
 require("babel-core/register");
 require("babel-polyfill");
-async function ipAdresimiAl(){
-	await axios({
-		method: 'get',
-		url: 'https://apis.ergineer.com/ipadresim',
-	})
-	.then(function (response) {
-		return response.data
-	})
-	.then(function (a) {
-		benimIP=a
-	});
-}				
-// ------------ değiştirmeyin --------------
 
+async function ipAdresimiAl() {
+  await axios({
+    method: "get",
+    url: "https://apis.ergineer.com/ipadresim",
+  })
+    .then(function (response) {
+      return response.data;
+    })
+    .then(function (a) {
+      benimIP = a;
+      console.log(benimIP);
+    });
+}
+
+// ------------ değiştirmeyin --------------
 
 /*
 	ADIM 1: axios kullanarak, aşağıdaki URL'ye GET sorgusu atacağız
     (tag içindeki yere kendi ipnizi yazarak URL'yi oluşturun):
     https://apis.ergineer.com/ipgeoapi/<ipniz>
-	
+	88.230.55.106
 	NOT: Bilgisayarın IP adresini öğrenmek için: https://apis.ergineer.com/ipadresim 
 	ADIM 5'e gelene kadar fonksiyonunuzu test etmek için ip nizi URL'ye manuel olarak ekleyebilirsiniz.
 */
 
 /*
-	ADIM 2: Geri döndürülen verileri inceleyin, bu sizin ip bilgileriniz! Bileşen fonksiyonunuzu geliştirmek içindeki bu veri yapısını
+	ADIM 2: Geri döndürülen verileri inceleyin, bu sizin ip bilgileriniz!
+	 Bileşen fonksiyonunuzu geliştirmek içindeki bu veri yapısını
 	iyice anlamanız gerekmektedir.
 	
 */
@@ -62,11 +64,74 @@ async function ipAdresimiAl(){
 /*
 	ADIM 5: Manuel olarak eklediğiniz IP adresini dinamiğe dönüştürün. 
 	Sayfanın en üstünde ---değiştirmeyin--- etiketleri arasında yer alan asenkron ipAdresimiAl() fonksiyonuna 
-	sorgu atarak bilgisayarınız IP adresini dinamik olarak aldıracaksınız. Bu fonksiyon asenkron olarak çağırıldığında `benimIP` değişkenine 
+	sorgu atarak bilgisayarınız IP adresini dinamik olarak aldıracaksınız. 
+	Bu fonksiyon asenkron olarak çağırıldığında `benimIP` değişkenine 
 	bilgisayarınızın IP adresini atayacaktır. 
 	Örnek dinamik URL kullanımı: var url = "https://apis.ergineer.com/ipgeoapi/"+benimIP; 
 */
 
-
-
 //kodlar buraya gelecek
+
+function myIpCard(params) {
+  const div = document.createElement("div");
+  div.className = "card";
+
+  const imgFlag = document.createElement("img");
+  imgFlag.setAttribute("src", "https://flagsapi.com/TR/flat/64.png");
+
+  div.prepend(imgFlag);
+
+  //div infor starts
+
+  const divInfo = document.createElement("div");
+  divInfo.className = "card-info";
+
+  const header3 = document.createElement("h3");
+  header3.className = "ip";
+  header3.textContent = params.sorgu;
+
+  const p1 = document.createElement("p");
+  p1.textContent = `Enlem: ${params.enlem} Boylam: ${params.boylam}`;
+
+  const p2 = document.createElement("p");
+  p2.textContent = `Şehir ${params.şehir}`;
+
+  const p3 = document.createElement("p");
+  p3.textContent = `Saat dilimi: ${params.saatdilimi}`;
+
+  const p4 = document.createElement("p");
+  p4.textContent = `Para dilimi: ${params.parabirimi}`;
+
+  const p5 = document.createElement("p");
+  p5.textContent = `ISP: ${params.isp}`;
+
+  //ekleme kısmı
+  divInfo.appendChild(header3);
+  divInfo.appendChild(p1);
+  divInfo.appendChild(p2);
+  divInfo.appendChild(p3);
+  divInfo.appendChild(p4);
+  divInfo.appendChild(p5);
+
+  //son ekleme
+
+  div.append(divInfo);
+
+  return div;
+}
+
+const cardsDiv = document.querySelector(".cards");
+
+var url = "https://apis.ergineer.com/ipgeoapi/";
+
+const axiosResp = async function () {
+  try {
+    const responses = await axios.get(url + "88.230.55.106");
+    const allData = responses.data;
+    const createDom = myIpCard(allData);
+    cardsDiv.appendChild(createDom);
+  } catch (err) {
+    console.log("axios isteğinde hata oluştu!!! ", err);
+  }
+};
+axiosResp();
