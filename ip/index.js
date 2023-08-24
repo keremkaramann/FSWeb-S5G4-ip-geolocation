@@ -17,7 +17,6 @@ async function ipAdresimiAl() {
     })
     .then(function (a) {
       benimIP = a;
-      console.log(benimIP);
     });
 }
 
@@ -126,7 +125,8 @@ var url = "https://apis.ergineer.com/ipgeoapi/";
 
 const axiosResp = async function () {
   try {
-    const responses = await axios.get(url + "88.230.55.106");
+    await ipAdresimiAl();
+    const responses = await axios.get(url + benimIP);
     const allData = responses.data;
     const createDom = myIpCard(allData);
     cardsDiv.appendChild(createDom);
