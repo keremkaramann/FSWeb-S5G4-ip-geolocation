@@ -107,13 +107,7 @@ function myIpCard(params) {
   p5.textContent = `ISP: ${params.isp}`;
 
   //ekleme kısmı
-  divInfo.appendChild(header3);
-  divInfo.appendChild(p);
-  divInfo.appendChild(p1);
-  divInfo.appendChild(p2);
-  divInfo.appendChild(p3);
-  divInfo.appendChild(p4);
-  divInfo.appendChild(p5);
+  divInfo.append(header3, p, p1, p2, p3, p4, p5);
 
   //son ekleme
 
@@ -130,7 +124,6 @@ const axiosResp = async function () {
   try {
     await ipAdresimiAl();
     const responses = await axios.get(url + benimIP);
-    console.log(responses);
     const allData = responses.data;
     const createDom = myIpCard(allData);
     cardsDiv.appendChild(createDom);
