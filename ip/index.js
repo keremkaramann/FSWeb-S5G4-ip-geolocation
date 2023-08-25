@@ -87,11 +87,15 @@ function myIpCard(params) {
   header3.className = "ip";
   header3.textContent = params.sorgu;
 
+  const p = document.createElement("p");
+  p.className = "ulke";
+  p.textContent = `${params.ülke} (${params.ülkeKodu})`;
+
   const p1 = document.createElement("p");
   p1.textContent = `Enlem: ${params.enlem} Boylam: ${params.boylam}`;
 
   const p2 = document.createElement("p");
-  p2.textContent = `Şehir ${params.şehir}`;
+  p2.textContent = `Şehir: ${params.şehir}`;
 
   const p3 = document.createElement("p");
   p3.textContent = `Saat dilimi: ${params.saatdilimi}`;
@@ -104,6 +108,7 @@ function myIpCard(params) {
 
   //ekleme kısmı
   divInfo.appendChild(header3);
+  divInfo.appendChild(p);
   divInfo.appendChild(p1);
   divInfo.appendChild(p2);
   divInfo.appendChild(p3);
@@ -125,6 +130,7 @@ const axiosResp = async function () {
   try {
     await ipAdresimiAl();
     const responses = await axios.get(url + benimIP);
+    console.log(responses);
     const allData = responses.data;
     const createDom = myIpCard(allData);
     cardsDiv.appendChild(createDom);
