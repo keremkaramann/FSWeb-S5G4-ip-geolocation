@@ -19,14 +19,12 @@ async function ipAdresimiAl() {
       benimIP = a;
     });
 }
-
 // ------------ değiştirmeyin --------------
 
 /*
 	ADIM 1: axios kullanarak, aşağıdaki URL'ye GET sorgusu atacağız
     (tag içindeki yere kendi ipnizi yazarak URL'yi oluşturun):
     https://apis.ergineer.com/ipgeoapi/<ipniz>
-	88.230.55.106
 	NOT: Bilgisayarın IP adresini öğrenmek için: https://apis.ergineer.com/ipadresim 
 	ADIM 5'e gelene kadar fonksiyonunuzu test etmek için ip nizi URL'ye manuel olarak ekleyebilirsiniz.
 */
